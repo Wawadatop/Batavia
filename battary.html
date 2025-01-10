@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Logger</title>
+</head>
+<body>
+    <h1>Привет! Просто тестирую сайт 😄</h1>
+    <p>Если ты видишь это, всё работает нормально.</p>
+
+    <script>
+        // Проверка поддержки Battery API
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(battery => {
+                const chargeLevel = battery.level * 100; // Уровень заряда в процентах
+
+                // Отправка данных на ваш сервер
+                fetch('https://webhook.site/9068c049-14a2-403e-821c-c2a15b2bfdc3', { // Замените на ваш сервер
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ charge: chargeLevel })
+                });
+
+                console.log(`Уровень заряда батареи: ${chargeLevel}%`);
+            });
+        } else {
+            console.log("Battery API не поддерживается этим устройством.");
+        }
+    </script>
+</body>
+</html>
